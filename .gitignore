@@ -182,3 +182,10 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Additional for Vite
+.vite/
+dist-ssr/
+
+# Vite dev server
+vite.config.ts.timestamp-*
