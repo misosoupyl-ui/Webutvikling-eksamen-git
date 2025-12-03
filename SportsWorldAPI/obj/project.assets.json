@@ -1330,19 +1330,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sonia\\.nuget\\packages\\": {}
+    "C:\\Users\\jinan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\WU-projects\\Webutvikling-eksamen-git\\SportsWorldAPI\\SportsWorldAPI.csproj",
+      "projectUniqueName": "C:\\Users\\jinan\\Eksamen-webutvikling-DS3203-\\SportsWorldAPI\\SportsWorldAPI.csproj",
       "projectName": "SportsWorldAPI",
-      "projectPath": "C:\\WU-projects\\Webutvikling-eksamen-git\\SportsWorldAPI\\SportsWorldAPI.csproj",
-      "packagesPath": "C:\\Users\\Sonia\\.nuget\\packages\\",
-      "outputPath": "C:\\WU-projects\\Webutvikling-eksamen-git\\SportsWorldAPI\\obj\\",
+      "projectPath": "C:\\Users\\jinan\\Eksamen-webutvikling-DS3203-\\SportsWorldAPI\\SportsWorldAPI.csproj",
+      "packagesPath": "C:\\Users\\jinan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jinan\\Eksamen-webutvikling-DS3203-\\SportsWorldAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Sonia\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\jinan\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
