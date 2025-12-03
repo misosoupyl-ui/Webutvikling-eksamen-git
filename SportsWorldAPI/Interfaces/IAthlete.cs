@@ -8,4 +8,8 @@ interface IAthlete
     double Price { get; set; }
     string Image { get; set; }
     bool PurchaseStatus { get; set; }
-}
+} 
+
+
+
+// dette er bare en test
