@@ -1,14 +1,11 @@
-import AthleteList from "./components/AthleteList"
-import FinanceList from "./components/FinanceList"
-
+import AppRouting from "./routing/AppRouting";
 
 function App() {
-
   return (
     <>
-    <AthleteList/>
+    <AppRouting/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
