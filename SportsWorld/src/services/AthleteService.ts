@@ -63,3 +63,4 @@ export default {
   putAthletes,
   deleteAthletes,
 };
+
