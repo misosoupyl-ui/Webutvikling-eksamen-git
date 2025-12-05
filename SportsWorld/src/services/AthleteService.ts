@@ -48,12 +48,14 @@ const putAthletes = async (
   }
 };
 
-const deleteAthletes = async (id: number): Promise<void> => {
+const deleteAthletes = async (id: number): Promise<boolean> => {
   try {
     const response = await axios.delete<IAthlete>(`${athleteEndpoint}/${id}`);
     console.log("Delete response:", response);
+    return true;
   } catch (error) {
     console.error("Error deleting athlete:", error);
+    return false;
   }
 };
 export default {
