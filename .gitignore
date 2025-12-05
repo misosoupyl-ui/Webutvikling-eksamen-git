@@ -189,3 +189,7 @@ dist-ssr/
 
 # Vite dev server
 vite.config.ts.timestamp-*
+
+*.db-wal
+*.db-shm
+
