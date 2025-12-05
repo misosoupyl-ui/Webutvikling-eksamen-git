@@ -6,11 +6,20 @@ using SportsWorldAPI.Models;
 
 namespace SportsWorldAPI.Contexts;
 
-
-public class SportsWorldContext(DbContextOptions<SportsWorldContext> options) :
-DbContext(options)
+public class SportsWorldContext : DbContext
 {
-    // Tabeller i DB.
+    public SportsWorldContext(DbContextOptions<SportsWorldContext> options)
+    : base(options)
+    {
+        
+    }
+    
+
+       // Tabeller i DB.
      public DbSet<Finance> Finances {get; set;}
      public DbSet<Athlete> Athletes {get; set;}
 }
+
+
+
+ 
