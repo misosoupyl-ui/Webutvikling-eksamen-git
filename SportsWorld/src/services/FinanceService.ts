@@ -4,13 +4,13 @@ import axios from "axios";
 
 const financeEndpoint = "http://localhost:5105/finance";
 
-const getFinance = async (): Promise<IFinance | null> => {
+const getFinance = async (): Promise<IFinance[]> => {
   try {
-    const response = await axios.get<IFinance>(financeEndpoint);
+    const response = await axios.get<IFinance[]>(financeEndpoint);
     return response.data;
   } catch (error) {
     console.error("Error:", error);
-    return null;
+    return [];
   }
 };
 
