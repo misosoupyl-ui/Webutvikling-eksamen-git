@@ -20,7 +20,7 @@ public class FinanceController(SportsWorldContext _sportsWorldContext) : Control
         try
         {
             // Henter alle rader fra finance tabellen
-            List<Finance> finances = await _sportsWorldContext.ToListAsync();
+            List<Finance> finances = await _sportsWorldContext.Finances.ToListAsync();
             // 200
             return Ok(finances);
         }
@@ -40,7 +40,7 @@ public async Task<ActionResult<Finance>> Get(int id)
         try
         {
             // Forsøker å finne finance raden med riktig id
-            Finance? finance = await _sportsWorldContext.finances.FindAsync;
+            Finance? finance = await _sportsWorldContext.Finances.FindAsync;
 
             if (finance != null)
             {
