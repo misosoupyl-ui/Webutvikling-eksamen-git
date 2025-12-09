@@ -3,7 +3,7 @@ import AppRouting from "./routing/AppRouting";
 function App() {
   return (
     <>
-    <AppRouting/>
+      <AppRouting />
     </>
   );
 }
