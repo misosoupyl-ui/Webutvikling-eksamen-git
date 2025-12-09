@@ -11,7 +11,7 @@ public class AthleteController(SportsWorldContext _sportsWorldContext) : Control
 {
 
 
-// ===GET / athlete, henter athletes fra db===
+// ===GET / athlete, henter athletes fra db test github===
 
  [HttpGet] 
  public async Task<ActionResult<List<Athlete>>>  Get()
