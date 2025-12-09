@@ -40,7 +40,7 @@ public async Task<ActionResult<Finance>> Get(int id)
         try
         {
             // Forsøker å finne finance raden med riktig id
-            Finance? finance = await _sportsWorldContext.Finances.FindAsync;
+            Finance? finance = await _sportsWorldContext.Finances.FindAsync(id);
 
             if (finance != null)
             {
