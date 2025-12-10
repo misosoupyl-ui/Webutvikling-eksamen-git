@@ -66,7 +66,7 @@ public class AthleteController(SportsWorldContext _sportsWorldContext) : Control
     // Oppretter en ny athlete i db
 
     [HttpPost]
-    public async Task<ActionResult> Post(Athlete newAthlete)
+    public async Task<ActionResult<Athlete>> Post(Athlete newAthlete)
     {
         try
         {
@@ -74,7 +74,7 @@ public class AthleteController(SportsWorldContext _sportsWorldContext) : Control
             _sportsWorldContext.Athletes.Add(newAthlete);
             // Lagrer endringene til db (INSERT)
             await _sportsWorldContext.SaveChangesAsync();
-            return Created(); // 201
+            return CreatedAtAction("Get", new { id = newAthlete.Id}, newAthlete); // 201
         }
         catch
         {
