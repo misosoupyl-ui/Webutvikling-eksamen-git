@@ -1,145 +1,120 @@
 import { useState } from "react";
 import AthleteService from "../services/AthleteService";
+import ImageUploadService from "../services/ImageUpLoadService";
 import type { IAthlete } from "../interfaces/IAthlete";
-import ImageUpLoadService from "../services/ImageUpLoadService";
 
-const RegisterAthleteForm = () => {
+const RegisterAthleteForm = ({
+  onAthleteCreated,
+}: {
+  onAthleteCreated: (athlete: IAthlete) => void;
+}) => {
   // Skjemaverdier
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [price, setPrice] = useState("");
-
-  // Her lagrer vi valgt bildefil (fra <input type="file">)
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  // Statusmelding til bruker
-  const [statusMessage, setStatusMessage] = useState<string>("");
+  // Statusmelding
+  const [statusMessage, setStatusMessage] = useState("");
 
-  const postNewAthlete = async () => {
-    // Enkel validering – sjekker at viktige felt er fylt ut
+  // Når bruker trykker på Save
+  const handleSubmit = async () => {
+    // Validering
     if (!name || !gender || !price) {
-      setStatusMessage("Du må fylle ut navn, kjønn og pris.");
+      setStatusMessage("You must fill out all fields.");
       return;
     }
 
-    // Konverterer pris fra tekst (input) til number
-    const priceNumber = Number(price);
-    if (Number.isNaN(priceNumber) || priceNumber < 0) {
-      setStatusMessage("Pris må være et positivt tall.");
-      return;
+    let uploadedFileName = "";
+
+    // Laster opp fil hvis bruker valgte et bilde
+    if (imageFile) {
+      const uploaded = await ImageUploadService.uploadImage(imageFile);
+      if (!uploaded) {
+        setStatusMessage("Image upload failed.");
+        return;
+      }
+      uploadedFileName = uploaded;
     }
 
-    // Sjekker at bruker har valgt et bilde
-    if (!imageFile) {
-      setStatusMessage("Du må velge et bilde.");
-      return;
-    }
-
-    // 1: Last opp bilde via ImageUpLoadService
-    const fileName = await ImageUpLoadService.uploadImage(imageFile);
-
-    if (!fileName) {
-      setStatusMessage("Noe gikk galt ved bildeopplasting.");
-      return;
-    }
-
-    // 2: Lager nytt athlete-objekt som sendes til AthleteService (og videre til API-et)
+    // Lager athlete-objekt
     const newAthlete: IAthlete = {
-      name: name,
-      gender: gender,
-      price: priceNumber,
-      image: fileName, // Viktig: bruker filnavnet som backend genererte
-      // Når vi registrerer en ny athlete skal den være "not purchased" som default
+      name,
+      gender,
+      price: Number(price),
+      image: uploadedFileName,
       purchaseStatus: false,
     };
 
-    // 3: Venter (await) på at AthleteService blir ferdig med å poste nytt athlete
+    // Sender til API
     const response = await AthleteService.postAthletes(newAthlete);
 
-    // Sjekker om AthleteService returnerte noe (true = alt gikk bra, null = feil)
     if (response) {
-      setStatusMessage(`${response.name} is registered!`);
+      setStatusMessage(`${response.name} has been registered!`);
 
-      // Tømmer feltene etter vellykket registrering
+      // Kaller callback → viktig!
+      onAthleteCreated(response);
+
+      // Nullstiller form
       setName("");
       setGender("");
       setPrice("");
       setImageFile(null);
     } else {
-      setStatusMessage(
-        "Something went wrong while registering, try again."
-      );
+      setStatusMessage("Something went wrong.");
     }
-
-    // Nullstill statusmelding etter 3 sekunder
-    setTimeout(() => {
-      setStatusMessage("");
-    }, 3000);
   };
 
   return (
-    <section>
-      <h3 className="text-xl font-semibold mb-4">Register a new Athlete</h3>
+    <div className="flex flex-col gap-4 max-w-sm">
+      <label>
+        <span>Name</span>
+        <input
+          className="border rounded px-2 py-1"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </label>
 
-      <div className="flex flex-col gap-3 max-w-sm">
-        {/* Navn */}
-        <label className="flex flex-col text-sm">
-          <span>Name</span>
-          <input
-            className="border rounded px-2 py-1"
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </label>
+      <label>
+        <span>Gender</span>
+        <input
+          className="border rounded px-2 py-1"
+          type="text"
+          value={gender}
+          onChange={(e) => setGender(e.target.value)}
+        />
+      </label>
 
-        {/* Kjønn */}
-        <label className="flex flex-col text-sm">
-          <span>Gender</span>
-          <input
-            className="border rounded px-2 py-1"
-            type="text"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-          />
-        </label>
+      <label>
+        <span>Price</span>
+        <input
+          className="border rounded px-2 py-1"
+          type="text"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+      </label>
 
-        {/* Pris */}
-        <label className="flex flex-col text-sm">
-          <span>Price</span>
-          <input
-            className="border rounded px-2 py-1"
-            type="text"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </label>
+      <label>
+        <span>Image File</span>
+        <input
+          className="border rounded px-2 py-1"
+          type="file"
+          onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
+        />
+      </label>
 
-        {/* Bilde-fil */}
-        <label className="flex flex-col text-sm">
-          <span>Image</span>
-          <input
-            className="border rounded px-2 py-1"
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files?.[0] ?? null;
-              setImageFile(file);
-            }}
-          />
-        </label>
+      <button
+        className="px-4 py-2 bg-slate-200 text-black rounded hover:bg-slate-300"
+        onClick={handleSubmit}
+      >
+        Save
+      </button>
 
-        <button
-          type="button"
-          onClick={postNewAthlete}
-          className="mt-2 px-4 py-2 rounded border bg-slate-100 text-slate-900 hover:bg-slate-200"
-        >
-          Save
-        </button>
-
-        <p className="mt-2 text-sm">Status: {statusMessage}</p>
-      </div>
-    </section>
+      <p>Status: {statusMessage}</p>
+    </div>
   );
 };
 
