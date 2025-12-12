@@ -1,13 +1,19 @@
 import type { IAthlete } from "../interfaces/IAthlete";
-
+import AthleteService from "../services/AthleteService";
+import { useState } from "react";
+import AthleteDelete from "./AthleteDelete";
 //Komponent som tar inn et athlete objekt.
 const AthleteItem = ({
   athlete,
   onUpdate,
+  onDelete,
 }: {
   athlete: IAthlete;
   onUpdate: (athlete: IAthlete) => void;
+  onDelete: (id: number) => void;
 }) => {
+  const [statusMessage, setStatusMessage] = useState("");
+
   return (
     <div className="">
       {/*Boks som viser informasjon om athlete, sammen med tailwind klasser*/}
@@ -28,7 +34,7 @@ const AthleteItem = ({
         <p className="text-center text-white">Gender: {athlete.gender}</p>
         {/*Pris. (Universiell utforming) Bruker toLocateString slik at store tall blir lettere å lese, vises med tusenskiller tilpasset brukerens språk.https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString */}
         <p className="text-center text-white">
-          Price: {athlete.price.toLocaleString() ?? "Unknown"}
+          Price: {(athlete.price ?? 0).toLocaleString() ?? "Unknown"}
         </p>
         {/*Kjøpsstatus*/}
         <p className="text-center text-white">
@@ -44,6 +50,7 @@ const AthleteItem = ({
             Update
           </button>
         </div>
+        <AthleteDelete athlete={athlete} onDelete={onDelete} />
       </article>
     </div>
   );

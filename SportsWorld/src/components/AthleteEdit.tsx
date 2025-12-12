@@ -2,6 +2,9 @@ import { useRef, useState, useEffect } from "react";
 import type { IAthlete } from "../interfaces/IAthlete";
 import AthleteService from "../services/AthleteService";
 
+//AthleteEdit komponent som lar bruker endre informasjon om athlete.
+// athlete= objektet som skal vises og redigeres
+// onSave= funksjon som kalles når oppdateringen er lagret.
 const AthleteEdit = ({
   athlete,
   onSave,
@@ -9,6 +12,7 @@ const AthleteEdit = ({
   athlete: IAthlete;
   onSave: (updatedAthlete: IAthlete) => void;
 }) => {
+  //  Lese verdiene fra inout feltet.
   const idInput = useRef<HTMLInputElement>(null);
   const nameInput = useRef<HTMLInputElement>(null);
   const priceInput = useRef<HTMLInputElement>(null);
@@ -17,15 +21,19 @@ const AthleteEdit = ({
   // State for å vise status melding til brukeren
   const [statusMessage, setStatusMessage] = useState<string>("");
 
+  //
   useEffect(() => {
     if (idInput.current && athlete.id !== undefined) {
       idInput.current.value = athlete.id.toString();
     }
-
+    // Fyller navn, pris og kjøpstatus
     if (nameInput.current) nameInput.current.value = athlete.name;
-    if (priceInput.current) priceInput.current.value = athlete.price.toString();
+    if (priceInput.current)
+      priceInput.current.value = (athlete.price ?? 0).toString();
     if (purchaseStatusRef.current)
-      purchaseStatusRef.current.value = athlete.purchaseStatus.toString();
+      purchaseStatusRef.current.value = (
+        athlete.purchaseStatus ?? false
+      ).toString();
   }, [athlete]);
 
   const editAthlete = async () => {
@@ -44,6 +52,7 @@ const AthleteEdit = ({
       const purchaseValue = purchaseStatusRef.current.value === "true";
 
       if (!isNaN(id) && !isNaN(price)) {
+        //Lager et nytt athlete objekt.
         const editedAthlete: IAthlete = {
           id,
           name,
@@ -52,19 +61,20 @@ const AthleteEdit = ({
           image: athlete.image,
           gender: athlete.gender,
         };
+        //Sender det til backend delen via athlete service, oppdaterer UI, og
+        try {
+          await AthleteService.putAthletes(editedAthlete);
 
-        const response = await AthleteService.putAthletes(editedAthlete);
-        if (response) {
           onSave(editedAthlete);
           setStatusMessage("Athlete updated");
-        } else {
+        } catch (error) {
           setStatusMessage("Something went wrong with updating");
         }
       } else {
         setStatusMessage("ID and Price must be numbers");
       }
     } else {
-      setStatusMessage("All input needs to be filled");
+      setStatusMessage("Input needs to be filled");
     }
   };
 
