@@ -14,15 +14,15 @@ const RegisterAthletePage = () => {
   };
 
   return (
-    <section className="min-h-screen bg-slate-900 text-white p-6">
+    <section className="min-h-screen bg-slate-900 text-white p-6 ">
       <h1 className="text-4xl mb-6 flex justify-center">Register Athlete</h1>
       <div className="flex gap-10">
         {/* Sender callback til formen */}
         <RegisterAthleteForm onAthleteCreated={handleAthleteCreated} />
         <div className="flex-1">
           {/* Viser kun athletes som er registrert via Page 2 */}
-          <h2 className="text-2xl font-semibold mt-10 mb-4">
-            Newly Registered Athletes
+          <h2 className="text-2xl font-semibold mt-10 mb-4 text-yellow-500">
+            Newly Registered Athletes :
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

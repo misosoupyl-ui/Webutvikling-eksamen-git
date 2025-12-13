@@ -66,7 +66,7 @@ const RegisterAthleteForm = ({
   };
 
   return (
-    <div className="flex flex-col items-start gap-6  rounded-xl shadow-lg max-w-sm max-w-md mt-10 p-10 border border-slate-500 bg-slate-700/50">
+    <div className="flex flex-col items-start gap-6  rounded-xl shadow-lg w-full max-w-xl mt-10 p-10 border border-slate-500 bg-slate-700/50">
       <label className="flex flex-col w-full">
         <span className="font-medium p-2">Name</span>
         <input
@@ -117,7 +117,9 @@ const RegisterAthleteForm = ({
         Save
       </button>
 
-      <p className="font-semibold mt-2">Status: {statusMessage}</p>
+      <p className="font-semibold mt-2 text-green-500">
+        Status: {statusMessage}
+      </p>
     </div>
   );
 };

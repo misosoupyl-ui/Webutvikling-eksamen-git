@@ -4,32 +4,38 @@ import AthleteService from "../services/AthleteService";
 import { MdPersonSearch } from "react-icons/md";
 
 //Kode inspirert fra: https://www.kindacode.com/article/how-to-create-a-filter-search-list-in-react
+//https://www.geeksforgeeks.org/reactjs/how-to-build-a-search-filter-using-react-hooks/
+//
 
 const SearchBar = () => {
-  //Oppretter en state variabel for å huske det brukeren skriver i søkefeltet
-  //og oppdateres hver gang input endres
+  //** STATE VARIABLER **//
+
+  //For huske hvilken ID brukeren skriver i søkefeltet
   const [searchId, setSearchId] = useState("");
-  // En state for å vise status meldinger til brukeren
+  // Vise status meldinger til brukeren
   const [statusMessage, setStatusMessage] = useState("");
-  // Oppretter en state for å lagre resultatet av søket, enten athlete som ble funnet eller null hvis ingen
+  // Lagrer resultatet av søket, enten athlete som ble funnet eller null hvis ingen
   const [foundAthlete, setFoundAthlete] = useState<IAthlete | null>(null);
 
-  //Funksjonen for å håndtere søket
+  //**FUNKSJON FOR Å HÅNDTERE SØKET**//
 
   const filterSearch = async () => {
     const id = Number(searchId); // konverterer input til number
     if (!isNaN(id)) {
-      // Hvis ID er gyldig søk i backend
+      // Hvis ID er gyldig hent athlete fra backend
       const athlete = await AthleteService.getAthletesById(id);
 
       if (athlete) {
-        setFoundAthlete(athlete); // Oppdaterer resultatet
+        // Hvis athlete er funnet oppdaterer resultatet og ny statusmelding
+        setFoundAthlete(athlete);
         setStatusMessage(`Found Athlete Id: ! ${athlete.id}`);
       } else {
+        // Hvis ikke, nullstill resultat og vis error statusmelding
         setFoundAthlete(null);
         setStatusMessage("Did not find athlete");
       }
     } else {
+      // Hvis input ikke er et tall, nullstill og vis feilmelding
       setFoundAthlete(null);
       setStatusMessage("Id must be a number");
     }

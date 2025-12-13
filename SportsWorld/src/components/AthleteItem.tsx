@@ -3,10 +3,11 @@ import AthleteDelete from "./AthleteDelete";
 import { CiEdit } from "react-icons/ci";
 
 // Komponent som tar inn et athlete objekt.
+// Kan vise handlinger som update & delete, dersom showActions er satt til true(pga at disse knappene ikke alltid skal vises)
 const AthleteItem = ({
-  athlete,
-  onUpdate,
-  onDelete,
+  athlete, // Selve Athlete objektet som skal vises
+  onUpdate, // Funksjon som kalles når oppdatering
+  onDelete, // funksjon som kalles når sletting
   showActions = true,
 }: {
   athlete: IAthlete;
@@ -16,12 +17,11 @@ const AthleteItem = ({
 }) => {
   return (
     <div className="">
-      {/*Boks som viser informasjon om athlete, sammen med tailwind klasser*/}
+      {/*Boks som viser informasjon om athlete*/}
       <article className="col-span-3 border-4 border-violet-300 border-y-violet-500 shadow-xl/30 bg-slate-900 p-4 drop-shadow-xl/50 hover:scale-105 hover:shadow-2xl transition-transform duration-500">
         {/*Navn og ID*/}
-        <h3 className="text-center font-semibold">
-          {athlete.name}
-          (id: {athlete.id})
+        <h3 className="text-center font-semibold text-size-lg">
+          {athlete.name} (Id: {athlete.id})
         </h3>
 
         {/*Bilde*/}
@@ -37,6 +37,7 @@ const AthleteItem = ({
 
         {/*Pris*/}
         <p className="text-start text-white">
+          {/* Kode inspo: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing*/}
           Price: {(athlete.price ?? 0).toLocaleString() ?? "Unknown"}
         </p>
 
@@ -50,6 +51,7 @@ const AthleteItem = ({
           <>
             <div className="flex justify-end gap-4 mt-2 ">
               <button
+                // Kaller onUpdate dersom hvis funksjonen finnes
                 onClick={() => onUpdate?.(athlete)}
                 className="px-3 py-1 !bg-green-600 text-white rounded hover:bg-blue-500"
               >
@@ -57,7 +59,7 @@ const AthleteItem = ({
               </button>
             </div>
 
-            {/* Delete */}
+            {/*Viser slett knappen kun hvis athlete eksiterer og ondelete er definert*/}
             {athlete.id !== undefined && onDelete && (
               <AthleteDelete athlete={athlete} onDelete={onDelete} />
             )}
