@@ -60,7 +60,7 @@ const AthleteList = () => {
         <button
           onClick={getAthletes}
           /*Denne kan endres på*/
-          className="border border-fuchsia-700 px-2 py-1 text-white bg-fuchsia-600 hover:bg-fuchsia-500 cursor-pointer"
+          className="!bg-purple-900/50 border mt-6"
         >
           Show all athletes
         </button>

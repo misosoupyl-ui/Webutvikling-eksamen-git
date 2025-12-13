@@ -1,5 +1,6 @@
 import type { IAthlete } from "../interfaces/IAthlete";
 import AthleteDelete from "./AthleteDelete";
+import { CiEdit } from "react-icons/ci";
 
 // Komponent som tar inn et athlete objekt.
 const AthleteItem = ({
@@ -50,9 +51,9 @@ const AthleteItem = ({
             <div className="flex justify-end gap-4 mt-2 ">
               <button
                 onClick={() => onUpdate?.(athlete)}
-                className="px-3 py-1 bg-green-600 text-white rounded hover:bg-blue-500"
+                className="px-3 py-1 !bg-green-600 text-white rounded hover:bg-blue-500"
               >
-                Update
+                <CiEdit />
               </button>
             </div>
 

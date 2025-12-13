@@ -79,29 +79,34 @@ const AthleteEdit = ({
   };
 
   return (
-    <section>
+    <section className="bg-slate-800 shadow-lg  mt-6">
       <h3>Update Athlete</h3>
-      <div>
+      <div className="flex items-center gap-2 mt-3">
         <label>Id</label>
-        <input ref={idInput} className="border" type="number" readOnly />
+        <input
+          ref={idInput}
+          className="border rounded"
+          type="number"
+          readOnly
+        />
       </div>
 
-      <div>
+      <div className="flex items-center gap-2 mt-3">
         <label>Name</label>
-        <input ref={nameInput} className="border" type="text" />
+        <input ref={nameInput} className="border rounded " type="text" />
       </div>
-      <div>
+      <div className="flex items-center gap-2 mt-3">
         <label>Price</label>
-        <input ref={priceInput} className="border" type="number" />
+        <input ref={priceInput} className="border rounded" type="number" />
       </div>
-      <div>
+      <div className="flex items-center gap-2 mt-3">
         <label>Kjøpsstatus</label>
-        <select ref={purchaseStatusRef} className="border">
+        <select ref={purchaseStatusRef} className="border rounded">
           <option value="true">Purchased</option>
           <option value="false"> Not Purchased</option>
         </select>
       </div>
-      <button onClick={editAthlete} className="border">
+      <button onClick={editAthlete} className="!bg-purple-900/50 border mt-6">
         Save changes
       </button>
       {statusMessage && <p className="text-green-600"> {statusMessage}</p>}

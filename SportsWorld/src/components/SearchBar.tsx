@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { IAthlete } from "../interfaces/IAthlete";
 import AthleteService from "../services/AthleteService";
+import { MdPersonSearch } from "react-icons/md";
 
 //Kode inspirert fra: https://www.kindacode.com/article/how-to-create-a-filter-search-list-in-react
 
@@ -44,7 +45,9 @@ const SearchBar = () => {
           onChange={(event) => setSearchId(event.target.value)}
           placeholder="Search athlete by Id.."
         />
-        <button onClick={filterSearch}>Search</button>
+        <button className="!bg-slate-700 m-5" onClick={filterSearch}>
+          <MdPersonSearch />
+        </button>
 
         {statusMessage}
 

@@ -7,7 +7,7 @@ const AppRouting = () => {
   return (
     <>
       <BrowserRouter>
-        <header className="bg-gray-900/50 p-6 shadow-xl/30 backdrop-blur-md flex justify-between items-center ">
+        <header className="!bg-slate-900 p-6 shadow-xl/30 backdrop-blur-md flex justify-between items-center ">
           <div className="font-bold text-3xl italic text-yellow-500">
             SportsWorld
           </div>
