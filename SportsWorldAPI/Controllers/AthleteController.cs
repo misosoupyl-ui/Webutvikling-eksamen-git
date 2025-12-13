@@ -98,7 +98,7 @@ public class AthleteController(SportsWorldContext _sportsWorldContext) : Control
             _sportsWorldContext.Athletes.Entry(editedAthlete).State = EntityState.Modified;
             //Utfører lagringen (UPDATE)
             await _sportsWorldContext.SaveChangesAsync();
-            return NoContent(); // 204 melding som betyr at det gikk bra og at det ikke er nødvendig med noe tilbake.
+            return Ok(editedAthlete); // returnerer 200 ok med oppdatert objekt. 
         }
         catch
         {

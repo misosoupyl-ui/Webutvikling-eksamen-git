@@ -91,7 +91,7 @@ public async Task<IActionResult> Put(Finance editedFinance)
         {
             _sportsWorldContext.Finances.Entry(editedFinance).State = EntityState.Modified;
             await _sportsWorldContext.SaveChangesAsync();
-            return NoContent();
+            return Ok(editedFinance);// returnerer 200 ok med oppdatert objekt
         }
         catch
         {

@@ -66,54 +66,58 @@ const RegisterAthleteForm = ({
   };
 
   return (
-    <div className="flex flex-col gap-4 max-w-sm">
-      <label>
-        <span>Name</span>
+    <div className="flex flex-col items-start gap-6  rounded-xl shadow-lg max-w-sm max-w-md mt-10 p-10 border border-slate-500 bg-slate-700/50">
+      <label className="flex flex-col w-full">
+        <span className="font-medium p-2">Name</span>
         <input
           className="border rounded px-2 py-1"
           type="text"
+          placeholder="Enter athlete's name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(event) => setName(event.target.value)}
         />
       </label>
 
-      <label>
-        <span>Gender</span>
+      <label className="flex flex-col w-full">
+        <span className="font-medium p-2">Gender</span>
         <input
           className="border rounded px-2 py-1"
           type="text"
+          placeholder="Enter athlete's gender"
           value={gender}
-          onChange={(e) => setGender(e.target.value)}
+          onChange={(event) => setGender(event.target.value)}
         />
       </label>
 
-      <label>
-        <span>Price</span>
+      <label className="flex flex-col w-full">
+        <span className="font-medium p-2">Price</span>
         <input
           className="border rounded px-2 py-1"
           type="text"
+          placeholder="Enter price"
           value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={(event) => setPrice(event.target.value)}
         />
       </label>
 
-      <label>
+      <label className="flex flex-col w-full">
         <span>Image File</span>
         <input
           className="border rounded px-2 py-1"
           type="file"
-          onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
+          onChange={(event) => setImageFile(event.target.files?.[0] ?? null)}
         />
       </label>
 
       <button
-        className="px-4 py-2 bg-slate-200 text-black rounded hover:bg-slate-300"
+        className="px-4 py-2 !bg-green-900/50 text-white
+         rounded hover:bg-slate-300"
         onClick={handleSubmit}
       >
         Save
       </button>
 
-      <p>Status: {statusMessage}</p>
+      <p className="font-semibold mt-2">Status: {statusMessage}</p>
     </div>
   );
 };

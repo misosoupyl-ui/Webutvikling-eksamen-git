@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import FinanceService from "../services/FinanceService";
 import type { IFinance } from "../interfaces/IFinance";
+import PurchaseSection from "../components/PurchaseSection";
 
 import FinancialSituation from "../components/FinancialSituation";
 import LoanSection from "../components/LoanSection";
@@ -35,7 +36,15 @@ const DashboardPage = () => {
         </div>
       )}
 
-      {/* Section 3 kommer etterpå */}
+      {/* Section 3 */}
+      {finance && (
+        <div className="mt-6">
+          <PurchaseSection
+            finance={finance}
+            onFinanceUpdated={(updated) => setFinance(updated)}
+          />
+        </div>
+      )}
     </section>
   );
 };
