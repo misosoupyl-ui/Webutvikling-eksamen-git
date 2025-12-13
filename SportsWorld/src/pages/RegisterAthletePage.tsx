@@ -27,7 +27,7 @@ const RegisterAthletePage = () => {
 
       <div className="grid grid-cols-4 gap-6">
         {createdAthletes.map((athlete) => (
-          <AthleteItem key={athlete.id} athlete={athlete} onUpdate={() => {}} />
+          <AthleteItem key={athlete.id} athlete={athlete} showActions={false} />
         ))}
       </div>
     </section>

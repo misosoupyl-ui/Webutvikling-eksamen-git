@@ -1,19 +1,18 @@
 import type { IAthlete } from "../interfaces/IAthlete";
-import AthleteService from "../services/AthleteService";
-import { useState } from "react";
 import AthleteDelete from "./AthleteDelete";
-//Komponent som tar inn et athlete objekt.
+
+// Komponent som tar inn et athlete objekt.
 const AthleteItem = ({
   athlete,
   onUpdate,
   onDelete,
+  showActions = true,
 }: {
   athlete: IAthlete;
-  onUpdate: (athlete: IAthlete) => void;
-  onDelete: (id: number) => void;
+  onUpdate?: (athlete: IAthlete) => void;
+  onDelete?: (id: number) => void;
+  showActions?: boolean;
 }) => {
-  const [statusMessage, setStatusMessage] = useState("");
-
   return (
     <div className="">
       {/*Boks som viser informasjon om athlete, sammen med tailwind klasser*/}
@@ -23,6 +22,7 @@ const AthleteItem = ({
           {athlete.name}
           (id: {athlete.id})
         </h3>
+
         {/*Bilde*/}
         <img
           className="rounded-full w-40 h-40 object-cover border-2 border-black"
@@ -30,21 +30,38 @@ const AthleteItem = ({
           src={`http://localhost:5105/images/${athlete.image}`}
           alt={`This is a image of ${athlete.name}`}
         />
+
         {/*Kjønn*/}
         <p className="text-start text-white">Gender: {athlete.gender}</p>
-        {/*Pris. (Universiell utforming) Bruker toLocateString slik at store tall blir lettere å lese, vises med tusenskiller tilpasset brukerens språk.https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString */}
+
+        {/*Pris*/}
         <p className="text-start text-white">
           Price: {(athlete.price ?? 0).toLocaleString() ?? "Unknown"}
         </p>
+
         {/*Kjøpsstatus*/}
         <p className="text-center text-white">
           Status: {athlete.purchaseStatus ? "Purchased" : "Not Purchased"}
         </p>
-        {/*Oppdarerings knapp*/}
-        <div className="flex justify-end gap-4 mt-2 ">
-          <button onClick={() => onUpdate(athlete)}> Update</button>
-        </div>
-        <AthleteDelete athlete={athlete} onDelete={onDelete} />
+
+        {/*Actions (Update + Delete)*/}
+        {showActions && (
+          <>
+            <div className="flex justify-end gap-4 mt-2 ">
+              <button
+                onClick={() => onUpdate?.(athlete)}
+                className="px-3 py-1 bg-green-600 text-white rounded hover:bg-blue-500"
+              >
+                Update
+              </button>
+            </div>
+
+            {/* Delete */}
+            {athlete.id !== undefined && onDelete && (
+              <AthleteDelete athlete={athlete} onDelete={onDelete} />
+            )}
+          </>
+        )}
       </article>
     </div>
   );

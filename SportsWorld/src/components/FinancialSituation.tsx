@@ -1,35 +1,32 @@
-import { useEffect, useState } from "react";
-import FinanceService from "../services/FinanceService";
 import type { IFinance } from "../interfaces/IFinance";
 
-const FinancialSituation = () => {
-    // tabellen har bare en rad
-    const [finance, setFinance] = useState<IFinance | null>(null);
+const FinancialSituation = ({ finance }: { finance: IFinance }) => {
+  return (
+    <section className="p-4 bg-slate-800 rounded-xl text-white">
+      <h2 className="text-2xl font-semibold mb-4">Financial situation</h2>
 
+      <div className="space-y-2">
+        <p>
+          Money left:{" "}
+          <span className="font-semibold">
+            {finance.moneyLeft.toLocaleString()}
+          </span>
+        </p>
 
-    // Statusmelding
-    const [statusMessage, setStatusMessage] = useState<string>("");
+        <p>
+          Number of purchases:{" "}
+          <span className="font-semibold">{finance.numberOfPurchases}</span>
+        </p>
 
-    useEffect(() => {
-        const loadFinance = async () => {
-            const data = await FinanceService.getFinance();
+        <p>
+          Money spent:{" "}
+          <span className="font-semibold">
+            {finance.moneySpent.toLocaleString()}
+          </span>
+        </p>
+      </div>
+    </section>
+  );
+};
 
-            if (data) {
-                setFinance(data);
-            } else {
-                setStatusMessage("Could not load finance data.");
-            }
-        };
-
-        loadFinance();
-    }, []);
-
-    if (!finance) {
-        return(
-            <section className="p-4 bg-slate-800 rounded-xl text-white">
-                <h2 >Financial situation</h2>
-
-            </section>
-        )
-    }
-}
+export default FinancialSituation;
