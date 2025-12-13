@@ -2,11 +2,7 @@ import { useState } from "react";
 import type { IAthlete } from "../interfaces/IAthlete";
 import AthleteService from "../services/AthleteService";
 
-// Hva brukern skiver inn (string)
-
-// Resultat på det brukeren skriver inn, filtrert for display
-
-// Trenger et sted for å store user input, og også store hva som matcher det inputet
+//Kode inspirert fra: https://www.kindacode.com/article/how-to-create-a-filter-search-list-in-react
 
 const SearchBar = () => {
   //Oppretter en state variabel for å huske det brukeren skriver i søkefeltet
@@ -46,7 +42,7 @@ const SearchBar = () => {
           type="text"
           value={searchId}
           onChange={(event) => setSearchId(event.target.value)}
-          placeholder="Enter athlete ID"
+          placeholder="Search athlete by Id.."
         />
         <button onClick={filterSearch}>Search</button>
 

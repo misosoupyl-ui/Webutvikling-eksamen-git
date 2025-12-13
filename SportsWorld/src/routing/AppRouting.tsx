@@ -1,34 +1,57 @@
-import {BrowserRouter, Routes, Route, Link} from 'react-router-dom';
-import AthleteAdminPage from '../pages/AthleteAdminPage';
-import RegisterAthletePage from '../pages/RegisterAthletePage';
-import DashBoardPage from '../pages/DashBoardPage';
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import AthleteAdminPage from "../pages/AthleteAdminPage";
+import RegisterAthletePage from "../pages/RegisterAthletePage";
+import DashBoardPage from "../pages/DashBoardPage";
 
 const AppRouting = () => {
-    return (
-        <>
-        <BrowserRouter>
-        <header>
-            <nav>
-                <ul>
-                    <li><Link to='/athletes'>Athletes</Link></li>
-                    <li><Link to='/register'>Register Athlete</Link></li>
-                    <li><Link to='/dashboard'>Dashboard</Link></li>
-                </ul>
-            </nav>
+  return (
+    <>
+      <BrowserRouter>
+        <header className="bg-gray-900/50 p-6 shadow-xl/30 backdrop-blur-md flex justify-between items-center ">
+          <div className="font-bold text-3xl italic text-yellow-500">
+            SportsWorld
+          </div>
+          <nav className="">
+            <ul className="flex gap-16 mt-6">
+              <li className="h-16 ">
+                <Link
+                  to="/athletes"
+                  className="!text-white !font-semibold text-xl"
+                >
+                  Athletes
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/register"
+                  className="!text-white !font-semibold text-xl"
+                >
+                  Register Athlete
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard"
+                  className="!text-white !font-semibold text-xl"
+                >
+                  Dashboard
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </header>
 
         <main>
-            <Routes>
-               <Route path='/athletes' element={<AthleteAdminPage/>}></Route>
-               <Route path='/register' element={<RegisterAthletePage/>}></Route>
-               <Route path='/dashboard' element={<DashBoardPage/>}></Route>
-            </Routes>
+          <Routes>
+            <Route path="/athletes" element={<AthleteAdminPage />}></Route>
+            <Route path="/register" element={<RegisterAthletePage />}></Route>
+            <Route path="/dashboard" element={<DashBoardPage />}></Route>
+          </Routes>
         </main>
-        </BrowserRouter>
-        <footer></footer>   
-        
-        </>
-    )
-}
+      </BrowserRouter>
+      <footer className="bg-gray-800 text-white p-4 text-center"></footer>
+    </>
+  );
+};
 
 export default AppRouting;

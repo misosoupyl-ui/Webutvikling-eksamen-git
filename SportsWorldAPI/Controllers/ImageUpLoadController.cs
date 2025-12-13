@@ -4,7 +4,7 @@ namespace SportsWorldAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ImageUpLoadController(IWebHostEnvironment webHostEnvironment) : ControllerBase
+public class ImageUploadController(IWebHostEnvironment webHostEnvironment) : ControllerBase
 {
     [HttpPost]
     // navnet "file" må matche i frontend (formData.append("file", ...))
@@ -41,7 +41,7 @@ public class ImageUpLoadController(IWebHostEnvironment webHostEnvironment) : Con
             }
 
             // returnerer 201 Created, og kan også sende tilbake filnavnet hvis dere vil bruke det i frontend
-            return Created(string.Empty, newFileName);
+            return Created(string.Empty, new { fileName = newFileName});
         }
         catch
         {
@@ -51,4 +51,4 @@ public class ImageUpLoadController(IWebHostEnvironment webHostEnvironment) : Con
 }
 
 // if else for å sjekke at bildefilen ikke er null må gjøres
-// ideelt sett bruker man GUID for tilfeldig navn
+// ideelt sett bruker man GUID for tilfeldig navn'

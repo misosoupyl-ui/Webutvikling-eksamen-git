@@ -17,7 +17,7 @@ const AthleteItem = ({
   return (
     <div className="">
       {/*Boks som viser informasjon om athlete, sammen med tailwind klasser*/}
-      <article className="col-span-3 border-4 border-violet-300 border-y-violet-500 shadow-xl/30 p-4 ">
+      <article className="col-span-3 border-4 border-violet-300 border-y-violet-500 shadow-xl/30 bg-slate-900 p-4 drop-shadow-xl/50 hover:scale-105 hover:shadow-2xl transition-transform duration-500">
         {/*Navn og ID*/}
         <h3 className="text-center font-semibold">
           {athlete.name}
@@ -25,15 +25,15 @@ const AthleteItem = ({
         </h3>
         {/*Bilde*/}
         <img
-          className="rounded-full w-40 h-40  object-cover border-4"
+          className="rounded-full w-40 h-40 object-cover border-2 border-black"
           //Web apiets sin images mappe:
           src={`http://localhost:5105/images/${athlete.image}`}
           alt={`This is a image of ${athlete.name}`}
         />
         {/*Kjønn*/}
-        <p className="text-center text-white">Gender: {athlete.gender}</p>
+        <p className="text-start text-white">Gender: {athlete.gender}</p>
         {/*Pris. (Universiell utforming) Bruker toLocateString slik at store tall blir lettere å lese, vises med tusenskiller tilpasset brukerens språk.https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString */}
-        <p className="text-center text-white">
+        <p className="text-start text-white">
           Price: {(athlete.price ?? 0).toLocaleString() ?? "Unknown"}
         </p>
         {/*Kjøpsstatus*/}
@@ -41,14 +41,8 @@ const AthleteItem = ({
           Status: {athlete.purchaseStatus ? "Purchased" : "Not Purchased"}
         </p>
         {/*Oppdarerings knapp*/}
-        <div className="flex justify-center mt-2">
-          <button
-            className="px-2 py-1 bg-green-600 text-white rounded hover:bg-blue-500"
-            onClick={() => onUpdate(athlete)}
-          >
-            {" "}
-            Update
-          </button>
+        <div className="flex justify-end gap-4 mt-2 ">
+          <button onClick={() => onUpdate(athlete)}> Update</button>
         </div>
         <AthleteDelete athlete={athlete} onDelete={onDelete} />
       </article>
